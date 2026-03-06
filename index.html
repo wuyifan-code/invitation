@@ -613,8 +613,6 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
-            /* 魔法属性：基于底层背景反色，白色底变黑，黑色底变白 */
-            mix-blend-mode: difference;
         }
 
         .nav-item {
@@ -632,10 +630,23 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.4);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 2;
+        }
+
+        /* 针对浅色背景的深色导航模式 */
+        .side-nav.dark-mode .nav-dot {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        .side-nav.dark-mode .nav-item.active .nav-dot,
+        .side-nav.dark-mode .nav-item:hover .nav-dot {
+            background-color: var(--color-forest);
+        }
+        .side-nav.dark-mode .nav-label {
+            color: var(--color-forest);
+            text-shadow: none;
         }
 
         /* 选中态 & 悬停态导航点放大 */
@@ -655,6 +666,10 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             animation: pulse 2s infinite;
+        }
+
+        .side-nav.dark-mode .nav-item.active .nav-dot::before {
+            border-color: rgba(44, 62, 46, 0.4);
         }
 
         @keyframes pulse {
@@ -683,8 +698,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
             white-space: nowrap;
-            text-shadow: none;
-            /* mix-blend-mode下不需要阴影来区分 */
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
         }
 
         .nav-item:hover .nav-label,
@@ -1032,6 +1046,8 @@
         // ==========================================
         const sections = document.querySelectorAll('.hero, .section-card');
         const navItems = document.querySelectorAll('.nav-item');
+        const sideNav = document.getElementById('sideNav');
+        const lightSections = ['section-intro', 'section-gallery']; // 浅色背景板块
 
         const observerOptions = {
             root: null,
@@ -1052,6 +1068,13 @@
                             item.classList.add('active');
                         }
                     });
+
+                    // 动态切换深浅配色
+                    if (lightSections.includes(id)) {
+                        sideNav.classList.add('dark-mode');
+                    } else {
+                        sideNav.classList.remove('dark-mode');
+                    }
                 }
             });
         }, observerOptions);
