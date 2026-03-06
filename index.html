@@ -640,10 +640,12 @@
         .side-nav.dark-mode .nav-dot {
             background-color: rgba(0, 0, 0, 0.2);
         }
+
         .side-nav.dark-mode .nav-item.active .nav-dot,
         .side-nav.dark-mode .nav-item:hover .nav-dot {
             background-color: var(--color-forest);
         }
+
         .side-nav.dark-mode .nav-label {
             color: var(--color-forest);
             text-shadow: none;
@@ -698,7 +700,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
             white-space: nowrap;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
         }
 
         .nav-item:hover .nav-label,
@@ -898,12 +900,20 @@
             border-radius: 8px;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 10px 30px rgba(0, 0, 0, 0.4);
             animation: cardEntrance 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            border: 2px solid rgba(212, 175, 55, 0.3); /* 细微金边 */
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            /* 细微金边 */
         }
 
         @keyframes cardEntrance {
-            from { opacity: 0; transform: translateY(50px) rotateX(10deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(10deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
         }
 
         .envelope-image {
@@ -915,7 +925,8 @@
 
         /* 模仿火漆印章的设计 */
         .envelope-btn {
-            background: linear-gradient(135deg, #F0C265, #B5852A); /* 金色封蜡 */
+            background: linear-gradient(135deg, #F0C265, #B5852A);
+            /* 金色封蜡 */
             color: #4A3511 !important;
             border: none;
             width: 80px;
@@ -924,7 +935,7 @@
             font-size: 0.9rem;
             font-weight: bold;
             letter-spacing: 0.1em;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255,255,255,0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.4);
             position: absolute;
             bottom: -40px;
             left: 50%;
@@ -939,7 +950,7 @@
             padding: 10px;
             font-family: var(--font-heading);
             border: 1px solid #D4AF37;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
             outline: none;
         }
 
@@ -956,7 +967,7 @@
 
         .envelope-btn:hover {
             transform: translateX(-50%) scale(1.1) rotate(5deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255,255,255,0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.5);
             background: linear-gradient(135deg, #F5D07B, #C59535);
         }
     </style>
@@ -967,7 +978,8 @@
     <div id="invitationEnvelope" class="envelope-wrapper">
         <div class="envelope-bg"></div>
         <div class="envelope-card">
-            <img src="https://raw.githubusercontent.com/wuyifan-code/invitation/main/Gemini_Generated_Image_z6vcrjz6vcrjz6vc.png" class="envelope-image" alt="VIP Invitation">
+            <img src="https://raw.githubusercontent.com/wuyifan-code/invitation/main/Gemini_Generated_Image_z6vcrjz6vcrjz6vc.png"
+                class="envelope-image" alt="VIP Invitation">
             <button id="openEnvelopeBtn" class="envelope-btn">拆开<br>信函</button>
         </div>
     </div>
@@ -1043,25 +1055,25 @@
         <section id="section-gallery" class="section-card">
             <div class="container">
                 <div class="gallery-header">
-                    <h2>The Art of Gelato</h2>
-                    <p>探索我们的美味视界</p>
+                    <h2>The Art of Us</h2>
+                    <p>我们探索的视界</p>
                 </div>
                 <!-- 使用用户要求插入的这3张图片 -->
                 <div class="gallery-grid">
                     <div class="gallery-item">
                         <img src="https://raw.githubusercontent.com/wuyifan-code/invitation/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-03-06%20202312.png"
-                            alt="美味冰淇淋">
-                        <div class="gallery-overlay">用心手作</div>
+                            alt="我的公众号">
+                        <div class="gallery-overlay">开辟道路</div>
                     </div>
                     <div class="gallery-item">
                         <img src="https://raw.githubusercontent.com/wuyifan-code/invitation/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260306212746_294_98.jpg"
-                            alt="健康纵享">
-                        <div class="gallery-overlay">轻盈质感</div>
+                            alt="真需求">
+                        <div class="gallery-overlay">产品思维</div>
                     </div>
                     <div class="gallery-item">
                         <img src="https://raw.githubusercontent.com/wuyifan-code/invitation/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260306212749_295_98.jpg"
-                            alt="意式风味">
-                        <div class="gallery-overlay">纯正风味</div>
+                            alt="被讨厌的勇气">
+                        <div class="gallery-overlay">人生导师</div>
                     </div>
                 </div>
         </section>
@@ -1074,11 +1086,13 @@
                     <form id="rsvpForm">
                         <div class="form-group">
                             <label>我的好朋友 / Guest Name</label>
-                            <input type="text" value="陈雁" readonly style="color: #fff; cursor: not-allowed;" id="rsvpNameInput">
+                            <input type="text" value="陈雁" readonly style="color: #fff; cursor: not-allowed;"
+                                id="rsvpNameInput">
                         </div>
                         <div class="form-group">
                             <label>联系方式 / Contact Number</label>
-                            <input type="tel" value="13885100617" readonly style="color: #fff; cursor: not-allowed;" id="rsvpPhoneInput">
+                            <input type="tel" value="13885100617" readonly style="color: #fff; cursor: not-allowed;"
+                                id="rsvpPhoneInput">
                         </div>
                         <div class="form-group">
                             <label>Connection Protocol / 连接协议</label>
@@ -1374,17 +1388,17 @@
 
             // 信封拆开交互逻辑
             const openBtn = document.getElementById('openEnvelopeBtn');
-            if(openBtn) {
-                openBtn.addEventListener('click', function() {
+            if (openBtn) {
+                openBtn.addEventListener('click', function () {
                     const envelope = document.getElementById('invitationEnvelope');
                     envelope.classList.add('opened');
-                    
+
                     setTimeout(() => {
                         document.body.classList.remove('locked');
                     }, 1000); // 同步CSS动画时长
 
                     // 点拆开信封就是有效交互，直接在此处解锁播放音乐即可，完美避开浏览器限制
-                    if(bgMusic && bgMusic.paused) {
+                    if (bgMusic && bgMusic.paused) {
                         bgMusic.play().catch(console.error);
                     }
                 });
