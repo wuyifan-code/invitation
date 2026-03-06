@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>野人先生 | YEAH GELATO</title>
+    <!-- 引入高级排版字体: Playfair Display (衬线) 和 Inter (无衬线) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- 引入用于截图保存的库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+         /* 现代UI：高级感知色板与变量定义 */
+        :root {
+            /* 核心调色板：柔和的奶油色、开心果绿、深邃森林绿和雅致金 */
+            --color-cream: #FDFBF7;
+            --color-cream-dark: #F0EAE1;
+            --color-pistachio: #A3B899;
+            --color-forest: #2C3E2E;
+            --color-forest-dark: #1A251B;
+            --color-gold: #D4AF37;
+            --color-text: #333333;
+            --color-text-light: #666666;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* 基础重置 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font-body); 
+            background-color: var(--color-cream);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { 
+            font-family: var(--font-heading); 
+            color: var(--color-forest); 
+            font-weight: 600; 
+        }
+        
+        /* 布局控制 */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+        .section { padding: 140px 0; }
+        
+        /*========= 1. 首屏大图交互体验 (Hero Section) =========*/
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #111;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* 使用用户提供的店面实景图作为底图 */
+            background: url('http://19800521.s21i.faiusr.com/2/ABUIABACGAAglfSBugYo0L7S4AIw1BY41Qw!2000x2000.jpg') no-repeat center center;
+            background-size: cover;
+            opacity: 0.6;
+            transform: scale(1.05);
+            /* 微交互：缓慢的呼吸放大特效 */
+            animation: kenburns 20s ease-out infinite alternate;
+        }
+        @keyframes kenburns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #fff;
+            max-width: 800px;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+            color: #fff;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            font-family: var(--font-body);
+        }
+        
+        /* 玻璃拟态风格按钮 */
+        .btn {
+            display: inline-block;
+            padding: 18px 48px;
+            border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #fff;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border-radius: 2px;
+        }
+        .btn:hover {
+            background: #fff;
+            color: var(--color-forest);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .btn-dark {
+            background: var(--color-forest);
+            color: var(--color-cream);
+            border: 1px solid var(--color-forest);
+        }
+        .btn-dark:hover {
+            background: var(--color-pistachio);
+            border-color: var(--color-pistachio);
+            color: var(--color-forest-dark);
+        }
+        
+        /*========= 2. 品牌宣誓区 (Intro Section) =========*/
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10vw;
+            align-items: center;
+        }
+        @media(max-width: 900px) { 
+            .intro-grid { grid-template-columns: 1fr; gap: 60px; text-align: center; } 
+        }
+        .intro-text h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.2;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 30px;
+        }
+        .intro-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 80px; height: 1px;
+            background: var(--color-gold);
+        }
+        @media(max-width: 900px) {
+            .intro-text h2::after { left: 50%; transform: translateX(-50%); }
+        }
+        .intro-text p {
+            font-size: 1.15rem;
+            color: var(--color-text-light);
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+        
+        /* 特性卡片（大幅留白、弥散阴影） */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+            margin-top: 100px;
+        }
+        .feature-card {
+            padding: 50px 40px;
+            background: #fff;
+            /* 现代弥散极淡阴影 */
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.03);
+            transition: var(--transition-smooth);
+            border-left: 2px solid transparent;
+            text-align: left;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-left-color: var(--color-pistachio);
+            box-shadow: 0 20px 50px -10px rgba(44,62,46,0.08);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--color-pistachio);
+            margin-bottom: 30px;
+        }
+        
+        /*========= 3. 画廊展示区 (Gallery Section) =========*/
+        .gallery-header { 
+            text-align: center; 
+            margin-bottom: 80px; 
+        }
+        .gallery-header h2 { 
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 20px; 
+        }
+        .gallery-header p { 
+            color: var(--color-text-light); 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            font-weight: 500;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        @media(max-width: 800px) { 
+            .gallery-grid { grid-template-columns: 1fr; } 
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: var(--color-cream-dark);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            filter: brightness(0.95);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.7);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            color: #fff;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+        }
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+            opacity: 1;
+        }
+        
+        /*========= 4. 高端表单留资区 (RSVP Section) =========*/
+        .rsvp-section {
+            background: var(--color-forest);
+            color: var(--color-cream);
+            position: relative;
+        }
+        .rsvp-section h2 { 
+            color: var(--color-cream); 
+            text-align: center; 
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 80px; 
+        }
+        .rsvp-container {
+            max-width: 600px;
+            margin: 0 auto;
+            /* 玻璃拟态深色版本 */
+            background: rgba(255, 255, 255, 0.03);
+            padding: 80px 60px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        @media(max-width: 600px) {
+            .rsvp-container { padding: 40px 20px; border: none; background: transparent; }
+        }
+        .form-group { margin-bottom: 40px; }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 12px; 
+            font-size: 0.8rem; 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+            color: rgba(255, 255, 255, 0.6); 
+        }
+        .form-group input {
+            width: 100%;
+            padding: 16px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+            border-radius: 0; 
+        }
+        .form-group input:focus {
+            outline: none;
+            border-bottom-color: var(--color-gold);
+            padding-left: 10px; 
+        }
+        
+        /* 定制高级下拉框 */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+            width: 100%;
+        }
+        .custom-select-wrapper select {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            pointer-events: none;
+        }
+        .custom-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .custom-select-trigger:hover, .custom-select-trigger.open {
+            border-bottom-color: var(--color-gold);
+        }
+        .custom-select-trigger span {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .custom-select-trigger .arrow {
+            width: 8px;
+            height: 8px;
+            border-right: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            transform: translateY(-3px) rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+        .custom-select-trigger.open .arrow {
+            transform: translateY(3px) rotate(-135deg);
+        }
+        .custom-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(26, 37, 27, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .custom-options.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .custom-option {
+            padding: 15px 24px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .custom-option:last-child { border-bottom: none; }
+        .custom-option:hover {
+            background: rgba(255,255,255,0.05);
+            padding-left: 32px;
+            color: var(--color-pistachio);
+        }
+        .custom-option.selected {
+            color: var(--color-gold);
+            background: rgba(212, 175, 55, 0.05);
+            font-weight: 500;
+        }
+        
+        /*========= 5. 页脚 (Footer) =========*/
+        .footer {
+            padding: 80px 0;
+            text-align: center;
+            background: var(--color-cream-dark);
+        }
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-forest);
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+        }
+        .footer p { 
+            color: var(--color-text-light); 
+            font-size: 0.9rem; 
+            letter-spacing: 0.05em;
+        }
+        /*========= 6. 定制化保存截图弹窗视图 (Ticket Modal) =========*/
+        .ticket-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(17, 24, 39, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            flex-direction: column;
+        }
+        .ticket-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* 被截图的主体：高级邀请函存根 */
+        .ticket {
+            width: 360px;
+            background: var(--color-forest);
+            color: var(--color-cream);
+            border: 2px solid var(--color-gold);
+            padding: 40px 30px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            /* 防止截图时出现跨域或不必要的动画 */
+            animation: none !important;
+        }
+        .ticket::before, .ticket::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px; height: 20px;
+            background: #111827; /* 背景色一样来实现挖空效果 */
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .ticket::before { left: -10px; border-right: 2px solid var(--color-gold); }
+        .ticket::after { right: -10px; border-left: 2px solid var(--color-gold); }
+        
+        .ticket-border {
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            padding: 24px;
+            height: 100%;
+        }
+        .ticket h3 {
+            font-size: 2rem;
+            color: var(--color-gold);
+            margin-bottom: 5px;
+            letter-spacing: 0.05em;
+        }
+        .ticket .t-sub {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 30px;
+        }
+        .ticket .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+        .ticket .info-label {
+            font-size: 0.7rem; color: rgba(255,255,255,0.5); text-transform: uppercase;
+        }
+        .ticket .info-val {
+            font-size: 0.95rem; font-weight: 500; color: #fff;
+        }
+        .ticket-footer { margin-top: 30px; font-size: 0.75rem; color: var(--color-pistachio); }
+
+        .modal-actions {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border-color: rgba(255,255,255,0.5);
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+    <!-- 首屏体验 -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">YEAH GELATO</h1>
+            <p class="hero-subtitle">Artisanal Italian Gelato · Guiyang</p>
+            <a href="#rsvp" class="btn">索取品鉴邀请书</a>
+        </div>
+    </header>
+
+    <!-- 品牌故事 -->
+    <section class="section">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-text">
+                    <h2>意式匠心<br>野自天然</h2>
+                    <p>野人先生致力于将最纯正的意大利 Gelato 工艺带到贵阳。我们严格挑选全球优质食材，从世界黄金产区的开心果，到天然牧场的生牛乳，每一口都是自然的馈赠。</p>
+                    <p>颠覆传统美式冰淇淋的高热量负担，我们的手工 Gelato 脂肪含量极低，让您在纵享丝滑口感的同时，轻盈无负担。</p>
+                </div>
+                <!-- 通过网格排版的理念列表 -->
+                <div style="display: flex; flex-direction: column; gap: 40px;">
+                    <div style="border-left: 1px solid var(--color-pistachio); padding-left: 30px;">
+                        <h3 style="font-family: var(--font-body); font-size: 1.1rem; margin-bottom: 8px; letter-spacing: 0.1em;">HANDCRAFTED</h3>
+                        <p style="color: var(--color-text-light); font-size: 0.95rem;">坚持每日手工现做，经过复杂的工艺低温慢搅，达到极致绵密与细腻。</p>
+                    </div>
+                    <div style="border-left: 1px solid var(--color-pistachio); padding-left: 30px;">
+                        <h3 style="font-family: var(--font-body); font-size: 1.1rem; margin-bottom: 8px; letter-spacing: 0.1em;">100% NATURAL</h3>
+                        <p style="color: var(--color-text-light); font-size: 0.95rem;">拒绝人工色素与香精，极致还原真实食材最本真的原初香气与自然色泽。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 style="font-family: var(--font-body); font-size: 1.2rem; margin-bottom: 12px;">匠人手作</h3>
+                    <p style="color: var(--color-text-light); font-size: 0.95rem; line-height: 1.8;">每一份 Gelato 都在店内实验室新鲜制作，保证最佳赏味品质。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍃</div>
+                    <h3 style="font-family: var(--font-body); font-size: 1.2rem; margin-bottom: 12px;">极选食材</h3>
+                    <p style="color: var(--color-text-light); font-size: 0.95rem; line-height: 1.8;">直采原产地优质鲜果与特级坚果，每一勺都是浓郁本味。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3 style="font-family: var(--font-body); font-size: 1.2rem; margin-bottom: 12px;">轻盈低卡</h3>
+                    <p style="color: var(--color-text-light); font-size: 0.95rem; line-height: 1.8;">低脂低糖配方，热量仅为普通冰淇淋的 1/3，享受美味毫无负担。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 画廊视觉 -->
+    <section class="section" style="background-color: #fff;">
+        <div class="container">
+            <div class="gallery-header">
+                <h2>The Art of Gelato</h2>
+                <p>探索我们的美味视界</p>
+            </div>
+            <!-- 使用用户要求插入的这3张图片 -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d8f9bbfa513c4a4c85e555f177d8abe9.png~tplv-jbbdkfciu3-png:0:0.png" alt="美味冰淇淋">
+                    <div class="gallery-overlay">用心手作</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.36krcdn.com/hsossms/20260122/v2_25c75c3abf524fbf99f80e6c77996912@1465134610_oswg49998oswg1080oswg581_img_000?x-oss-process=image/format,jpg/interlace,1" alt="健康纵享">
+                    <div class="gallery-overlay">轻盈质感</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://pic2.zhimg.com/v2-c26a23842f62b9130eedd181745bbfab_1440w.jpg" alt="意式风味">
+                    <div class="gallery-overlay">纯正风味</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 贵宾预约表单 -->
+    <section id="rsvp" class="section rsvp-section">
+        <div class="container">
+            <h2>RSVP</h2>
+            <div class="rsvp-container">
+                <form id="rsvpForm">
+                    <div class="form-group">
+                        <label>阁下尊姓大名 / Guest Name</label>
+                        <input type="text" required placeholder="请输入您的姓名">
+                    </div>
+                    <div class="form-group">
+                        <label>联系方式 / Contact Number</label>
+                        <input type="tel" required placeholder="请输入您的手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>同行贵客 / Number of Guests</label>
+                        <select required>
+                            <option value="1">仅限本人出席 (1 Person)</option>
+                            <option value="2">携伴一人 (2 People)</option>
+                            <option value="3">三人及以上团体 (3+ People)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>受邀出席日期 / Date of Attendance</label>
+                        <select required>
+                            <option value="" disabled selected>请选择您方便出席的日期</option>
+                            <option value="03-08">3月8日 (March 8th)</option>
+                            <option value="03-15">3月15日 (March 15th)</option>
+                        </select>
+                    </div>
+                    <div style="text-align: center; margin-top: 60px;">
+                        <button type="submit" class="btn btn-dark" style="width: 100%; border: 1px solid rgba(255,255,255,0.2);">确认出席预约 / Confirm Attendance</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">YEAH GELATO</div>
+            <p>贵阳市南明区万象城 5F · 野人先生</p>
+            <p style="margin-top: 24px; opacity: 0.4; font-size: 0.8rem;">© 2026 野人先生. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 保存截图的隐藏层与弹窗 -->
+    <div id="ticketModal" class="ticket-modal">
+        <div id="captureArea" class="ticket">
+            <div class="ticket-border">
+                <h3>YEAH GELATO</h3>
+                <div class="t-sub"> VIP INVITATION </div>
+                
+                <div class="info-row">
+                    <span class="info-label">Guest / 贵宾</span>
+                    <span class="info-val" id="t-name">---</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Date / 日期</span>
+                    <span class="info-val" id="t-date">---</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Party / 人数</span>
+                    <span class="info-val" id="t-party">---</span>
+                </div>
+                
+                <div class="ticket-footer">
+                    凭此电子券至贵阳万象城5F享专属品鉴
+                </div>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button id="closeModalBtn" class="btn btn-outline" style="padding: 12px 24px; font-size: 0.8rem;">关闭窗口</button>
+            <button id="downloadTicketBtn" class="btn" style="padding: 12px 24px; font-size: 0.8rem; background: var(--color-gold); color: #000; border: none; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
+                📸 立即保存相册
+            </button>
+        </div>
+    </div>
+
+    <!-- 交互脚本 -->
+    <script>
+        // 丝滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // 定制高级下拉框逻辑
+        function initCustomSelects() {
+            document.querySelectorAll('select').forEach(select => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'custom-select-wrapper';
+                select.parentNode.insertBefore(wrapper, select);
+                wrapper.appendChild(select);
+                
+                const trigger = document.createElement('div');
+                trigger.className = 'custom-select-trigger';
+                const selectedOpt = select.options[select.selectedIndex];
+                const initialText = selectedOpt ? selectedOpt.text : '请选择';
+                trigger.innerHTML = `<span>${initialText}</span><div class="arrow"></div>`;
+                wrapper.appendChild(trigger);
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'custom-options';
+                
+                Array.from(select.options).forEach((option, index) => {
+                    if (option.disabled && option.value === "") return;
+                    const optDiv = document.createElement('div');
+                    optDiv.className = 'custom-option';
+                    if (select.selectedIndex === index) optDiv.classList.add('selected');
+                    optDiv.dataset.value = option.value;
+                    optDiv.innerText = option.text;
+                    
+                    optDiv.addEventListener('click', function() {
+                        select.value = this.dataset.value;
+                        trigger.querySelector('span').innerText = this.innerText;
+                        optionsDiv.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+                        this.classList.add('selected');
+                        optionsDiv.classList.remove('open');
+                        trigger.classList.remove('open');
+                        select.dispatchEvent(new Event('change'));
+                    });
+                    optionsDiv.appendChild(optDiv);
+                });
+                
+                wrapper.appendChild(optionsDiv);
+                
+                trigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('.custom-options.open').forEach(o => {
+                        if (o !== optionsDiv) o.classList.remove('open');
+                    });
+                    document.querySelectorAll('.custom-select-trigger.open').forEach(t => {
+                        if (t !== trigger) t.classList.remove('open');
+                    });
+                    optionsDiv.classList.toggle('open');
+                    trigger.classList.toggle('open');
+                });
+            });
+            
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.custom-options.open').forEach(o => o.classList.remove('open'));
+                document.querySelectorAll('.custom-select-trigger.open').forEach(t => t.classList.remove('open'));
+            });
+        }
+        initCustomSelects();
+
+        // 表单交互与截图逻辑
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const originalText = btn.innerText;
+            
+            // 提取表单数据
+            const inputs = this.querySelectorAll('input');
+            const selects = this.querySelectorAll('select');
+            const guestName = inputs[0].value;
+            const partyCount = selects[0].options[selects[0].selectedIndex].text.split('(')[0].trim();
+            const dateStr = selects[1].options[selects[1].selectedIndex].text.split('(')[0].trim();
+            
+            // 提交状态动画
+            btn.innerText = '正在生成专属邀请函...';
+            btn.style.opacity = '0.7';
+            btn.style.letterSpacing = '0.2em';
+            
+            setTimeout(() => {
+                // 生成成功状态
+                btn.innerText = '生成完毕';
+                btn.style.opacity = '1';
+                btn.style.background = '#D4AF37'; // 金色反馈
+                btn.style.borderColor = '#D4AF37';
+                btn.style.color = '#fff';
+                
+                setTimeout(() => {
+                    // 更新票据内容
+                    document.getElementById('t-name').innerText = guestName;
+                    document.getElementById('t-party').innerText = partyCount;
+                    document.getElementById('t-date').innerText = dateStr;
+                    
+                    // 弹出居中的票据弹窗
+                    document.getElementById('ticketModal').classList.add('active');
+                    
+                    // 恢复表单初始状态
+                    btn.innerText = originalText;
+                    btn.style.background = '';
+                    btn.style.borderColor = 'rgba(255,255,255,0.2)';
+                    btn.style.color = '';
+                    btn.style.letterSpacing = '0.15em';
+                    document.getElementById('rsvpForm').reset();
+                    
+                    document.querySelectorAll('.custom-select-wrapper').forEach(wrapper => {
+                        const select = wrapper.querySelector('select');
+                        const triggerSpan = wrapper.querySelector('.custom-select-trigger span');
+                        const selectedOpt = select.options[select.selectedIndex];
+                        triggerSpan.innerText = selectedOpt ? selectedOpt.text : '请选择';
+                        wrapper.querySelectorAll('.custom-option').forEach(opt => {
+                            if (opt.dataset.value === select.value) {
+                                opt.classList.add('selected');
+                            } else {
+                                opt.classList.remove('selected');
+                            }
+                        });
+                    });
+                }, 800);
+            }, 800);
+        });
+
+        // 保存截图核心代码
+        document.getElementById('downloadTicketBtn').addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerText;
+            btn.innerText = '正在保存...';
+            
+            // 隐藏可能影响截图的伪元素圆点（挖空效果）以免错位
+            const ticket = document.getElementById('captureArea');
+            ticket.style.background = 'var(--color-forest)'; // 强行设置背景防止透明错误
+            
+            html2canvas(ticket, {
+                scale: 2, // 提高截图清晰度
+                backgroundColor: '#2C3E2E',
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                // 将 canvas 转为图片并触发下载
+                const link = document.createElement('a');
+                link.download = `YEAH-GELATO-VIP-Ticket-${document.getElementById('t-name').innerText}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                btn.innerText = '✅ 保存成功';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error("Screenshot failed:", err);
+                alert("生成图片失败，请稍后再试或手动截屏。");
+                btn.innerText = originalText;
+            });
+        });
+
+        // 关闭弹窗
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('ticketModal').classList.remove('active');
+        });
+    </script>
+</body>
+</html>
